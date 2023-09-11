@@ -101,5 +101,4 @@ resetButton.addEventListener('click', () => {
     resetBoard(); // Call the resetBoard function when the button is clicked
 });
 
-// ... Continue with your existing code for the game logic ...
 
