@@ -13,27 +13,33 @@ let matrix = [r1c1, r1c2, r1c3, r2c1, r2c2, r2c3, r3c1, r3c2, r3c3];
 let user = "X";
 let computer = "0";
 
+// Initialize win counts
+let userWins = 0;
+let computerWins = 0;
+
+// Function to update the win counts display
+function updateWinCounts() {
+    document.querySelector('#userWins').textContent = userWins;
+    document.querySelector('#computerWins').textContent = computerWins;
+}
+
 matrix.forEach(cell => {
     cell.addEventListener('click', () => {
-        if (cell.innerHTML === user || cell.innerHTML === computer) 
-        {
+        if (cell.innerHTML === user || cell.innerHTML === computer) {
             alert("Invalid Input");
-        } 
-        else 
-        {
+        } else {
             cell.innerHTML = user;
 
-            // Check if the user won
-            if (checkWinner(user)) 
-            {
+            // Check if the user has won
+            if (checkWinner(user)) {
+                userWins++;
                 alert("You win!");
+                updateWinCounts();
                 return;
             }
 
             // Check if it's a draw
-            // .every will check all the conditions are settified or not. return true or false
-            if (matrix.every(cell => cell.innerHTML === user || cell.innerHTML === computer)) 
-            {
+            if (matrix.every(cell => cell.innerHTML === user || cell.innerHTML === computer)) {
                 alert("It's a draw!");
                 return;
             }
@@ -41,9 +47,11 @@ matrix.forEach(cell => {
             // Computer's turn
             setTimeout(() => {
                 computerMove();
-                // Check if the computer won
+                // Check if the computer has won
                 if (checkWinner(computer)) {
+                    computerWins++;
                     alert("Computer wins!");
+                    updateWinCounts();
                     return;
                 }
             }, 200);
@@ -61,22 +69,16 @@ function computerMove() {
     availableCells[ind].innerHTML = computer;
 }
 
-function checkWinner(player) 
-{
-
-    // list of combinations of winnings
-
+function checkWinner(player) {
     const winCombos = [
         [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
         [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
         [0, 4, 8], [2, 4, 6]             // Diagonals
     ];
 
-    for (const combo of winCombos) 
-    {
+    for (const combo of winCombos) {
         const [a, b, c] = combo;
-        if ( matrix[a].innerHTML === player && matrix[b].innerHTML === player && matrix[c].innerHTML === player ) 
-        {
+        if (matrix[a].innerHTML === player && matrix[b].innerHTML === player && matrix[c].innerHTML === player) {
             return true;
         }
     }
@@ -84,11 +86,10 @@ function checkWinner(player)
     return false;
 }
 
-
 // Function to reset the game board
 function resetBoard() {
     matrix.forEach(cell => {
-        cell.innerHTML = ""; // Clear the cell content
+        cell.innerHTML = "";
     });
 
     // Reset the matrix to contain all cells again
@@ -98,7 +99,7 @@ function resetBoard() {
 // Add click event listener to the reset button
 const resetButton = document.querySelector('#resetButton');
 resetButton.addEventListener('click', () => {
-    resetBoard(); // Call the resetBoard function when the button is clicked
+    resetBoard();
 });
 
 
