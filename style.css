@@ -35,3 +35,13 @@ body {
 .cell.o {
     color: #2196f3;
 }
+
+
+#resetButton {
+    margin-top: 10px;
+    margin-left: 47%;
+    width: 100px;
+    height: 70px;
+    font-size: large;
+    display: block; 
+}

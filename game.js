@@ -83,3 +83,23 @@ function checkWinner(player)
 
     return false;
 }
+
+
+// Function to reset the game board
+function resetBoard() {
+    matrix.forEach(cell => {
+        cell.innerHTML = ""; // Clear the cell content
+    });
+
+    // Reset the matrix to contain all cells again
+    matrix = [r1c1, r1c2, r1c3, r2c1, r2c2, r2c3, r3c1, r3c2, r3c3];
+}
+
+// Add click event listener to the reset button
+const resetButton = document.querySelector('#resetButton');
+resetButton.addEventListener('click', () => {
+    resetBoard(); // Call the resetBoard function when the button is clicked
+});
+
+// ... Continue with your existing code for the game logic ...
+
